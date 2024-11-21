@@ -1,0 +1,33 @@
+# Database
+DATABASE_URL="postgresql://postgres.ghzipzadsdffafdfaaadadf:7ulh3adasdasdadCZio@aws-0-us-west-1.pooler.supabase.com:5432/postgres"
+
+# Follow the instructions here to create a Google OAuth app: https://refine.dev/blog/nextauth-google-github-authentication-nextjs/#for-googleprovider-make-sure-you-have-a-google-account
+GITHUB_ID=your-github-oauth-app-id
+GITHUB_SECRET=your-github-oauth-app-secret
+
+GOOGLE_CLIENT_ID="45613232323223-tr621a4hhdbgcct0rs5husrtiumcg70h.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="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2"
+
+# Only for production – generate one here: https://generate-secret.vercel.app/32
+# Next Auth
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="QAKCLpuCjzhBrtyjaaadsresds+pkguh9nw0GgWBPuFGObg="
+
+#check here https://docs.lemonsqueezy.com/guides/developer-guide/getting-started
+# Lemon Squeezy
+#Test Mode API KEY & Credentials
+LEMONSQUEEZY_API_KEY="Adfdfdfsfr45342rfwerf2eve3v23.eyJhdWQiOiI5NGQ1OWNlZi1kYmI4LTRlYTUtYjE3OC1kMjU0MGZjZDY5MTkiLCJqdGkiOiIxY2Q5NjM4MTM0NDg1MTg5YTk1ODYwZmZmODE3ZTI5NDg3MWUwNDFlN2Y3YjNhMjIyYWJjZDY1ZmQwMGYyNmQwYjQxZmVmY2E4ZTFkMGJlYyIsImlhdCI6MTczMTk3MDAxNi41MjA2NjMsIm5iZiI6MTczMTk3MDAxNi41MjA2NjUsImV4cCI6MjA0NzUwMjgxNi40ODYzMjcsInN1YiI6IjM2NDYzMjAiLCJzY29wZXMiOltdfQ.cll7AxVA5xLXt2vxfs99pvtYRskqnnh-HX3aof4OPKH2os1EtAhfB5WbK6BeZw1gt8OslTpHy_k7Bo6iP_l8emLruVevIgoWRVhV_P_z-1pQSVfgEKtgNtqqMa0M1_WWWeGsqWrBB0L55vHgNZCUVtmS3IQs54o5mNB2q-q0IgBCgvDDU5PoLV1V3xqOVPi-RNeaOoAC5EDoKw92LaOBFflPH5V1M6MF7RoN3MpaGpM_UvZJxorgGEUmGH-FuGnkqYmRt8ERTZk6IjfRdOpipEMax7CGhTD1ODl0HTd6N3bsZqHAHFStcp_yVo_w5GAQPnGEI9EvwLYCYg9JiHCPcSIvhNBu4jmANqhNYUcWBsovikTVxULVrrZ3D4fIOSsFdkR1UnsJpKqX6qNDeahgVSyVxUPB2czn16_-EQX8WVDl7VOSDd_ToSqhJdePqrMhdFSu9MJCqZEGSWjpq5qMp93QJnOiSZTWd_m9W1dOBG6iTKFAjTK9tBQH-b_q_zR0"
+LEMONSQUEEZY_WEBHOOK_SECRET="W4HV8f8P7Xt6Rwedscaefwae343ef34f+KTH1FOb0o"
+LEMONSQUEEZY_STORE_ID="131463"
+
+LEMONS_SQUEEZY_PRODUCT_ID="394496"
+
+#Product Variant IDs
+NEXT_PUBLIC_LEMONSQUEEZY_YEAR_PRODUCT_ID="602111"
+NEXT_PUBLIC_LEMONSQUEEZY_MONTH_PRODUCT_ID="602444"
+
+
+# check here https://resend.com/docs/api-reference/api-keys/create-api-key
+RESEND_APIKEY=""
+RESEND_EMAIL_FROM=""
+
