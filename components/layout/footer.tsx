@@ -7,7 +7,7 @@ import { Icons } from "@/components/icons";
 
 export default function Footer() {
   return (
-    <div className="border-t border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <div className="border-t  border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           <div className="">
@@ -96,7 +96,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-border/40 pt-8 text-center text-base text-muted-foreground">
+        <div className="mt-4 border-t border-border/40 pt-8 text-center text-base text-muted-foreground">
           © {new Date().getFullYear()} {siteConfig.name} . All rights reserved.
         </div>
       </div>

@@ -6,6 +6,11 @@ export const dashboardConfig: DashboardConfig = {
     {
       title: "Dashboard",
       href: "/dashboard",
+      icon: "dashboard",
+    },
+    {
+      title: "Editor",
+      href: "/editor",
       icon: "post",
     },
     {

@@ -66,6 +66,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  input, textarea, select {
+    @apply bg-background border-border  ;
+  }
 }
 
 .bg-dot-pattern {
@@ -73,18 +76,43 @@
   background-size: 20px 20px;
 }
 
-/* .container {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 2rem;
-  padding-left: 2rem;
+@layer components {
+  .sidebar-item {
+    @apply flex items-center gap-2 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 cursor-move transition-colors;
+  }
+  
+  .markdown-element {
+    @apply p-4 my-2  bg-background rounded-lg border border-border transition-all;
+  }
+
+  .panel {
+    @apply bg-[#fffefe] dark:bg-[#141414] h-screen  rounded-lg border border-border shadow-sm;
+  }
+
+  .panel-title {
+    @apply text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4;
+  }
 }
 
-.animate-right {
-  animation: right 30s linear infinite alternate;
+::-webkit-scrollbar {
+  width: 8px ;
+  height: 8px;
+  background: transparent;
 }
 
-.animate-left {
-  animation: left 30s linear infinite alternate;
-} */
+::-webkit-scrollbar:horizontal {
+  height: 8px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 4px; 
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-xl bg-slate-400 dark:bg-slate-600;
+  border: 2px solid transparent; 
+  background-clip: content-box;
+}
+

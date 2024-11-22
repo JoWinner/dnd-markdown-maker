@@ -2,8 +2,7 @@ import React from "react";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { Session, getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { DashboardShell } from "@/components/ui/shell";
-import { DashboardHeader } from "@/components/ui/header";
+import MarkdownEditorPage from "@/components/markdown/editor/markdown-editor-page";
 
 
 const Dashboard = async () => {
@@ -14,15 +13,9 @@ const Dashboard = async () => {
 
   return (
     <>
-      <DashboardShell>
-        <DashboardHeader
-          heading="Dashboard"
-          text="Your main content are in here"
-        />
           <div>
-            doc here
+            <MarkdownEditorPage />
         </div>
-      </DashboardShell>
     </>
   );
 };
