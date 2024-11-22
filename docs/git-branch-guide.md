@@ -1,5 +1,25 @@
 # Git Branch Management Guide
 
+- To check the list of Git branches in your current repository, use the command 
+```bash 
+   git branch 
+```
+# Key points about checking Git branches:
+
+   1. List all local branches: 
+```bash 
+   git branch
+```
+
+  2. List all remote branches: 
+```bash
+    git branch -r 
+```
+  3. List all local and remote branches: 
+```bash
+    git branch -a 
+```
+
 ## Creating and Switching to a New Branch
 
 1. First, ensure you're on the main branch and it's up to date:

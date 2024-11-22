@@ -140,7 +140,7 @@ Next.js14 (app router), NextAuth, Typescript, Prisma, Supabase (Postgres), Lemon
       //   }),
       // };
 
-1.Direct GitHub repository integration
+1. Direct GitHub repository integration
 2. Export options (HTML, PDF)
 3. Cloud storage integration
 Enhanced markdown toolbar
