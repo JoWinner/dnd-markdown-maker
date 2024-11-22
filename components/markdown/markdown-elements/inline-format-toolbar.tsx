@@ -20,7 +20,7 @@ function InlineFormatToolbar({ onFormat, position}: InlineFormatToolbarProps) {
 
   return (
     <div
-      className="flex absolute z-50 top-0 left-0 -translate-y-full items-center gap-1 p-1 bg- dark:bg-slate-800 rounded-md shadow-lg border border-slate-200 dark:border-slate-700"
+      className="flex absolute z-50 top-0 left-0 -translate-y-full items-center gap-1 p-1 bg-slate-800 rounded-md shadow-lg border  border-slate-700"
     >
       <button
         onClick={() => onFormat("bold")}
