@@ -83,6 +83,72 @@ git checkout main
    git pull origin main
    ```
 
+## Merging to Main
+
+1. **When to Merge to Main**:
+   - Feature is complete and tested
+   - Code has been reviewed (if working in a team)
+   - All tests pass
+   - No conflicts with main branch
+
+2. **Merging Process**:
+   ```bash
+   # Update your feature branch with latest main
+   git checkout feature/enhanced-gfm-preview
+   git pull origin main
+
+   # Fix any conflicts if they exist
+   # Then push your changes
+   git push
+
+   # Switch to main and merge
+   git checkout main
+   git pull  # ensure main is up to date
+   git merge feature/enhanced-gfm-preview
+
+   # Push the merged changes
+   git push origin main
+   ```
+
+3. **After Merging**:
+   - Delete the feature branch (optional):
+   ```bash
+   git branch -d feature/enhanced-gfm-preview  # local branch
+   git push origin --delete feature/enhanced-gfm-preview  # remote branch
+   ```
+
+## Branch Creation Strategies
+
+1. **Creating from Main (Recommended)**:
+   - Best for independent features
+   - Ensures clean branch history
+   - Reduces merge conflicts
+   ```bash
+   git checkout main
+   git pull
+   git checkout -b feature/new-feature
+   ```
+
+2. **Creating from Another Branch**:
+   - Useful for dependent features
+   - Can lead to more complex history
+   - May require more careful merging
+   ```bash
+   git checkout feature/base-feature
+   git checkout -b feature/dependent-feature
+   ```
+
+3. **When to Branch from Another Branch**:
+   - Feature depends on unreleased code
+   - Working on related features
+   - Need to split a large feature
+   - Example: Building UI components that depend on a new API integration
+
+4. **Managing Dependencies**:
+   - Document branch dependencies
+   - Merge branches in the correct order
+   - Consider rebasing to maintain clean history
+
 ## Quick Reference for Current Changes
 
 To commit the enhanced GFM preview changes:
