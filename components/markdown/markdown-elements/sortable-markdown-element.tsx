@@ -2,8 +2,17 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { X, GripVertical, ChevronUp, ChevronDown } from 'lucide-react';
 import MarkdownElement from './markdown-element';
+import { MarkdownElement as MarkdownElementType } from '@/types/markdown';
 
-function SortableMarkdownElement({ element, updateElement, removeElement, moveElement }) {
+interface SortableMarkdownElementProps {
+  element: MarkdownElementType;
+  updateElement: (id: string, updates: Partial<MarkdownElementType>) => void;
+  removeElement: (id: string) => void;
+  moveElement: (id: string, direction: 'up' | 'down') => void;
+  onBadgeConfig?: (containerId: string) => void;
+}
+
+function SortableMarkdownElement({ element, updateElement, removeElement, moveElement, onBadgeConfig }: SortableMarkdownElementProps) {
   const {
     attributes,
     listeners,
@@ -65,6 +74,7 @@ function SortableMarkdownElement({ element, updateElement, removeElement, moveEl
           element={element}
           updateElement={updateElement}
           removeElement={removeElement}
+          onBadgeConfig={onBadgeConfig}
         />
       </div>
     </div>

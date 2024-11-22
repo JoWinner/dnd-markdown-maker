@@ -10,6 +10,7 @@ import {
   Minus,
   Table,
   CheckSquare,
+  Shield,
 } from "lucide-react";
 import React from "react";
 import { LucideIcon } from 'lucide-react';
@@ -77,6 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ collapsed }) => {
     { id: "hr" as MarkdownElementType, icon: Minus, label: "Divider" },
     { id: "table" as MarkdownElementType, icon: Table, label: "Table" },
     { id: "checkbox" as MarkdownElementType, icon: CheckSquare, label: "Checkbox List" },
+    { id: "badge-container" as MarkdownElementType, icon: Shield, label: "Badges" },
   ];
 
   return (

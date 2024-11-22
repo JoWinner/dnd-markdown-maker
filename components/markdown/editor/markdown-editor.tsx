@@ -9,9 +9,10 @@ interface MarkdownEditorProps {
   setMarkdown: React.Dispatch<React.SetStateAction<MarkdownElement[]>>;
   moveElement: (id: string, direction: 'up' | 'down') => void;
   collapsed: boolean;
+  onBadgeConfig?: (containerId: string) => void;
 }
 
-function MarkdownEditor({ markdown, setMarkdown, moveElement, collapsed}: MarkdownEditorProps) {
+function MarkdownEditor({ markdown, setMarkdown, moveElement, collapsed, onBadgeConfig}: MarkdownEditorProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: 'editor',
   });
@@ -55,6 +56,7 @@ function MarkdownEditor({ markdown, setMarkdown, moveElement, collapsed}: Markdo
               updateElement={updateElement}
               removeElement={removeElement}
               moveElement={moveElement}
+              onBadgeConfig={onBadgeConfig}
             />
           ))}
         </SortableContext>

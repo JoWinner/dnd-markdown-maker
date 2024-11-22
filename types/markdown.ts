@@ -16,7 +16,8 @@ export type MarkdownElementType =
   | 'link'
   | 'hr'
   | 'table'
-  | 'checkbox';
+  | 'checkbox'
+  | 'badge-container';
 
 // Specific element interfaces
 export interface HeadingElement extends BaseMarkdownElement {
@@ -84,6 +85,29 @@ export interface CheckboxElement extends BaseMarkdownElement {
   items: CheckboxItem[];
 }
 
+export type BadgeType = 
+  | 'github-stars'
+  | 'github-forks'
+  | 'github-issues'
+  | 'github-prs'
+  | 'license'
+  | 'custom';
+
+export type BadgeStyle = 'flat' | 'flat-square' | 'plastic' | 'for-the-badge' | 'social';
+
+export interface Badge {
+  id: string;
+  type: BadgeType;
+  username: string;
+  repository: string;
+  style: BadgeStyle;
+}
+
+export interface BadgeContainerElement extends BaseMarkdownElement {
+  type: 'badge-container';
+  badges: Badge[];
+}
+
 // Union type of all possible markdown elements
 export type MarkdownElement =
   | HeadingElement
@@ -96,7 +120,8 @@ export type MarkdownElement =
   | LinkElement
   | HorizontalRuleElement
   | TableElement
-  | CheckboxElement;
+  | CheckboxElement
+  | BadgeContainerElement;
 
 // Editor component props
 export interface MarkdownEditorProps {

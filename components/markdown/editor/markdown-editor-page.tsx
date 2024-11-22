@@ -8,12 +8,15 @@ import Sidebar from "./markdown-sidebar";
 import MarkdownEditor from "./markdown-editor";
 import Preview from "./markdown-preview";
 import { MarkdownElement } from "../../../types/markdown";
+import { Badge } from '@/types/markdown';
+import BadgeConfigModal from "../markdown-elements/badge-config-modal";
 
 function MarkdownEditorPage() {
   const [markdown, setMarkdown] = useState<MarkdownElement[]>([]);
-
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [editorCollapsed, setEditorCollapsed] = useState(false);
+  const [configModalOpen, setConfigModalOpen] = useState(false);
+  const [selectedBadgeContainer, setSelectedBadgeContainer] = useState<string | null>(null);
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -100,6 +103,12 @@ function MarkdownEditorPage() {
               id: crypto.randomUUID(),
               type: 'hr',
             };
+          case 'badge-container':
+            return {
+              id: crypto.randomUUID(),
+              type: 'badge-container',
+              badges: [],
+            };
           default:
             throw new Error(`Unsupported markdown element type: ${data.type}`);
         }
@@ -140,75 +149,108 @@ function MarkdownEditorPage() {
     }
   };
 
+  const handleBadgeConfig = (containerId: string) => {
+    setSelectedBadgeContainer(containerId);
+    setConfigModalOpen(true);
+  };
+
+  const handleAddBadge = (badge: Omit<Badge, 'id'>) => {
+    if (!selectedBadgeContainer) return;
+
+    const newBadge: Badge = {
+      ...badge,
+      id: crypto.randomUUID(),
+    };
+
+    setMarkdown((prev) => prev.map((element) => {
+      if (element.id === selectedBadgeContainer && element.type === 'badge-container') {
+        return {
+          ...element,
+          badges: [...element.badges, newBadge]
+        };
+      }
+      return element;
+    }));
+  };
+
   return (
-   
-      <div className="min-h-screen  bg-dot-pattern">
-        <DndContext
-          onDragEnd={handleDragEnd}
-          collisionDetection={pointerWithin}
-        >
-          <div className="container mx-auto py-32">
-            <div className="grid grid-cols-12 gap-4">
-              <div
-                className={`transition-all duration-300 relative ${
-                  sidebarCollapsed ? "col-span-1" : "col-span-2"
-                }`}
+    <div className="min-h-screen bg-dot-pattern">
+      <DndContext
+        onDragEnd={handleDragEnd}
+        collisionDetection={pointerWithin}
+      >
+        <div className="container mx-auto pt-10 pb-32">
+          <div className="grid grid-cols-12 gap-4">
+            <div
+              className={`transition-all duration-300 relative ${
+                sidebarCollapsed ? "col-span-1" : "col-span-2"
+              }`}
+            >
+              <button
+                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+                className="absolute -right-3 top-1/2 transform -translate-y-1/2 z-20 bg-white dark:bg-slate-800 p-1 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm"
               >
-                <button
-                  onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                  className="absolute -right-3 top-1/2 transform -translate-y-1/2 z-20 bg-white dark:bg-slate-800 p-1 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm"
-                >
-                  {sidebarCollapsed ? (
-                    <ChevronRight size={16} />
-                  ) : (
-                    <ChevronLeft size={16} />
-                  )}
-                </button>
-                <Sidebar collapsed={sidebarCollapsed} />
-              </div>
-              <div
-                className={`transition-all duration-300 relative ${
-                  editorCollapsed
-                    ? "col-span-4"
-                    : sidebarCollapsed
-                    ? "col-span-5"
-                    : "col-span-5"
-                }`}
+                {sidebarCollapsed ? (
+                  <ChevronRight size={16} />
+                ) : (
+                  <ChevronLeft size={16} />
+                )}
+              </button>
+              <Sidebar collapsed={sidebarCollapsed} />
+            </div>
+            <div
+              className={`transition-all duration-300 relative ${
+                editorCollapsed
+                  ? "col-span-4"
+                  : sidebarCollapsed
+                  ? "col-span-5"
+                  : "col-span-5"
+              }`}
+            >
+              <button
+                onClick={() => setEditorCollapsed(!editorCollapsed)}
+                className="absolute -right-3 top-1/2 transform -translate-y-1/2 z-20 bg-white dark:bg-slate-800 p-1 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm"
               >
-                <button
-                  onClick={() => setEditorCollapsed(!editorCollapsed)}
-                  className="absolute -right-3 top-1/2 transform -translate-y-1/2 z-20 bg-white dark:bg-slate-800 p-1 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm"
-                >
-                  {editorCollapsed ? (
-                    <ChevronRight size={16} />
-                  ) : (
-                    <ChevronLeft size={16} />
-                  )}
-                </button>
-                <MarkdownEditor
-                  markdown={markdown}
-                  setMarkdown={setMarkdown}
-                  moveElement={moveElement}
-                  collapsed={editorCollapsed}
-                />
-              </div>
-              <div
-                className={`transition-all duration-300 relative ${
-                  editorCollapsed  && sidebarCollapsed
-                    ? "col-span-7"
-                    : sidebarCollapsed
-                    ? "col-span-6"
-                    : editorCollapsed
-                    ? "col-span-6"
-                    : "col-span-5"
-                }`}
-              >
-                <Preview markdown={markdown} />
-              </div>
+                {editorCollapsed ? (
+                  <ChevronRight size={16} />
+                ) : (
+                  <ChevronLeft size={16} />
+                )}
+              </button>
+              <MarkdownEditor
+                markdown={markdown}
+                setMarkdown={setMarkdown}
+                moveElement={moveElement}
+                collapsed={editorCollapsed}
+                onBadgeConfig={handleBadgeConfig}
+              />
+            </div>
+            <div
+              className={`transition-all duration-300 relative ${
+                editorCollapsed  && sidebarCollapsed
+                  ? "col-span-7"
+                  : sidebarCollapsed
+                  ? "col-span-6"
+                  : editorCollapsed
+                  ? "col-span-6"
+                  : "col-span-5"
+              }`}
+            >
+              <Preview markdown={markdown} />
             </div>
           </div>
-        </DndContext>
-      </div>
+        </div>
+      </DndContext>
+
+      <BadgeConfigModal
+        isOpen={configModalOpen}
+        onClose={() => {
+          setConfigModalOpen(false);
+          setSelectedBadgeContainer(null);
+        }}
+        onAddBadge={handleAddBadge}
+      />
+    </div>
   );
 }
 
