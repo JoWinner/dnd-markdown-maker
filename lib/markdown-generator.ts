@@ -48,8 +48,8 @@ export const generateMarkdown = (elements: MarkdownElement[]): string => {
       case 'paragraph':
         return `${element.content}\n\n`;
       case 'list':
-        return element.items.map(item => 
-          `${element.ordered ? '1. ' : '- '}${item}`
+        return element.items.map((item, index) => 
+          `${element.ordered ? `${index + 1}. ` : '- '}${item}`
         ).join('\n') + '\n\n';
       case 'image':
         return `![${element.alt}](${element.url})\n\n`;

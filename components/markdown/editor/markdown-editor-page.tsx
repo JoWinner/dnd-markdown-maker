@@ -188,7 +188,7 @@ function MarkdownEditorPage() {
             >
               <button
                 onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                className="absolute -right-3 top-1/2 transform -translate-y-1/2 z-20 bg-white dark:bg-slate-800 p-1 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm"
+                className="absolute -right-3 top-1/2 transform -translate-y-1/2 z-20 bg-slate-300 dark:bg-slate-800 p-1 rounded-full border border-slate-400 dark:border-slate-700 shadow-sm"
               >
                 {sidebarCollapsed ? (
                   <ChevronRight size={16} />
@@ -209,7 +209,7 @@ function MarkdownEditorPage() {
             >
               <button
                 onClick={() => setEditorCollapsed(!editorCollapsed)}
-                className="absolute -right-3 top-1/2 transform -translate-y-1/2 z-20 bg-white dark:bg-slate-800 p-1 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm"
+                className="absolute -right-3 top-1/2 transform -translate-y-1/2 z-20 bg-slate-300 dark:bg-slate-800 p-1 rounded-full border border-slate-400 dark:border-slate-700 shadow-sm"
               >
                 {editorCollapsed ? (
                   <ChevronRight size={16} />

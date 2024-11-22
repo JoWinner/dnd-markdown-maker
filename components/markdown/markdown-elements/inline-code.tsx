@@ -5,6 +5,8 @@ interface InlineCodeProps {
 
 function InlineCode({ content = '', onChange }: InlineCodeProps) {
   return (
+    <div className="py-2">
+
     <input
       type="text"
       value={content}
@@ -12,6 +14,7 @@ function InlineCode({ content = '', onChange }: InlineCodeProps) {
       placeholder="Inline code..."
       className="w-full px-2 py-1 rounded border  border-border bg-accent font-mono"
     />
+      </div>
   );
 }
 
