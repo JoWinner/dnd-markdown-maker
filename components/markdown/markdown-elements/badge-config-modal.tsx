@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Badge, BadgeStyle, BadgeType } from '@/types/markdown';
+import { Button } from '@/components/ui/button';
 
 interface BadgeConfigModalProps {
   isOpen: boolean;
@@ -50,7 +51,7 @@ const BadgeConfigModal: React.FC<BadgeConfigModalProps> = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md">
+      <div className="bg-[#fffefe] dark:bg-[#141414] rounded-lg p-6 w-full max-w-md">
         <h2 className="text-xl font-semibold mb-4">Configure Badge</h2>
         
         <form onSubmit={handleSubmit}>
@@ -60,7 +61,7 @@ const BadgeConfigModal: React.FC<BadgeConfigModalProps> = ({
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value as BadgeType)}
-                className="w-full p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
+                className="w-full p-2 border border-border rounded-md bg-accent "
               >
                 {badgeTypes.map((badgeType) => (
                   <option key={badgeType.value} value={badgeType.value}>
@@ -76,7 +77,7 @@ const BadgeConfigModal: React.FC<BadgeConfigModalProps> = ({
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
+                className="w-full p-2 border border-border rounded-md bg-accent "
                 placeholder="e.g., facebook"
               />
             </div>
@@ -87,7 +88,7 @@ const BadgeConfigModal: React.FC<BadgeConfigModalProps> = ({
                 type="text"
                 value={repository}
                 onChange={(e) => setRepository(e.target.value)}
-                className="w-full p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
+                className="w-full p-2 border border-border rounded-md bg-accent "
                 placeholder="e.g., react"
               />
             </div>
@@ -97,7 +98,7 @@ const BadgeConfigModal: React.FC<BadgeConfigModalProps> = ({
               <select
                 value={style}
                 onChange={(e) => setStyle(e.target.value as BadgeStyle)}
-                className="w-full p-2 border rounded-md dark:bg-gray-700 dark:border-gray-600"
+                className="w-full p-2 border border-border rounded-md bg-accent "
               >
                 {badgeStyles.map((badgeStyle) => (
                   <option key={badgeStyle.value} value={badgeStyle.value}>
@@ -116,12 +117,13 @@ const BadgeConfigModal: React.FC<BadgeConfigModalProps> = ({
             >
               Cancel
             </button>
-            <button
+            <Button
+            variant="default"
               type="submit"
-              className="px-4 py-2 text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="px-4 py-2 text-sm "
             >
               Add Badge
-            </button>
+            </Button>
           </div>
         </form>
       </div>
