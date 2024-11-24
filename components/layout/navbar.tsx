@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import useScroll from "@/lib/hooks/use-scroll";
+import useScroll from "@/hooks/use-scroll";
 import UserDropdown from "./user-dropdown";
 import { Session } from "next-auth";
 import {

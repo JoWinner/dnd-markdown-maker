@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toast/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "config/site";
+import AuthProvider from "@/components/providers/session-provider";
 
 export const metadata = {
   title: siteConfig.name,
@@ -27,16 +28,18 @@ export default async function RootLayout({
           GeistMono.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-        {children}
-        <Toaster />
-        <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
-      </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+            <script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

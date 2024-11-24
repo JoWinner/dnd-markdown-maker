@@ -147,3 +147,8 @@ Enhanced markdown toolbar
 
 
 
+this is still not solved. issue is that I have two emails 123@gmail and abc@gmail.com. I have connected the app to 123@gmail.com, but I have only a github account with abc@gmail.com. So when try to connect to github through abc@gmail.com, it logs out 123@gmail from the app and signs in abc@gmail.com to the app and github.
+
+I think instead of just maintaining the auth session for 123@gmail.com and seperate the connection for repo soley for abc@gmail.com it rather create a new auth session and logs 123@gmail.com out and signs in abc@gmail.com.
+
+these flow must be seperated somehow. Please lets fix it

@@ -10,6 +10,8 @@ import Preview from "./markdown-preview";
 import { MarkdownElement } from "../../../types/markdown";
 import { Badge } from '@/types/markdown';
 import BadgeConfigModal from "../markdown-elements/badge-config-modal";
+import { RepositorySelector } from "@/components/github/repository-selector";
+import {GitHubToolbar } from "@/components/github/github-toolbar";
 
 function MarkdownEditorPage() {
   const [markdown, setMarkdown] = useState<MarkdownElement[]>([]);
@@ -179,6 +181,7 @@ function MarkdownEditorPage() {
         onDragEnd={handleDragEnd}
         collisionDetection={pointerWithin}
       >
+        <GitHubToolbar/>
         <div className="container mx-auto pt-10 pb-32">
           <div className="grid grid-cols-12 gap-4">
             <div

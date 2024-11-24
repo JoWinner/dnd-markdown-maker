@@ -1,15 +1,34 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions, DefaultSession } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "@/lib/prisma";
-
 import { getServerSession } from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
+import GithubProvider from 'next-auth/providers/github'
 import { compare } from "bcrypt";
 
-export const authOptions:NextAuthOptions = {
+declare module "next-auth" {
+  interface Session extends DefaultSession {
+    user: {
+      id: string;
+      subscriptionId?: string;
+      accounts?: any[];
+    } & DefaultSession["user"]
+  }
+}
+
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
+      authorization: {
+        params: {
+          scope: 'read:user user:email repo',
+        },
+      },
+    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
@@ -30,7 +49,6 @@ export const authOptions:NextAuthOptions = {
           },
         });
         const userPass = user?.password as string
-        // if user doesn't exist or password doesn't match
         if (!user || !(await compare(password, userPass))) {
           throw new Error("Invalid username or password");
         }
@@ -45,27 +63,37 @@ export const authOptions:NextAuthOptions = {
     strategy: 'jwt'
   },
   callbacks: {
-    // Add user ID to session from token
     session: async ({ session, token }) => {
       if (session?.user) {
         session.user.id = token.id;
         session.user.email = token.email;
         session.user.subscriptionId = token.subscriptionId;
+        
+        if (token.id) {
+          const accounts = await prisma.account.findMany({
+            where: {
+              userId: token.id as string,
+              provider: 'github'
+            }
+          });
+          session.user.accounts = accounts;
+        }
       }
-      return session
+      return session;
     },
-    async jwt({ token, user }) {
+    jwt: async ({ token, user, account }) => {
+      if (user) {
+        token.id = user.id;
+      }
+      
       const dbUser = await prisma.user.findFirst({
         where: {
           email: token.email as string,
         },
-      })
+      });
 
       if (!dbUser) {
-        if (user) {
-          token.id = user?.id
-        }
-        return token
+        return token;
       }
 
       return {
@@ -73,15 +101,14 @@ export const authOptions:NextAuthOptions = {
         name: dbUser.name,
         email: dbUser.email,
         subscriptionId: dbUser.subscriptionId as string
-      }
-    },
+      };
+    }
   }
-}
+};
 
 export function getSession() {
-  return getServerSession(authOptions)
+  return getServerSession(authOptions);
 }
 
 const handler = NextAuth(authOptions);
-
 export { handler as GET, handler as POST };
