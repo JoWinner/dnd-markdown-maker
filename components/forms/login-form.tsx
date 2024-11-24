@@ -11,6 +11,7 @@ import { signIn } from "next-auth/react";
 import FormInput from "../ui/form/input";
 import { Session } from "next-auth";
 import { Google } from "@/components/shared/icons";
+import { Icons } from "@/components/icons";
 import { Button, buttonVariants } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { toast } from "@/components/ui/toast/use-toast";
@@ -21,7 +22,7 @@ type SignInWithEmailFormInputs = z.infer<typeof signInWithPasswordSchema>;
 
 const LoginForm = ({ session }: { session: Session | null }) => {
   const [loading, setLoading] = useState(false);
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [isProviderLoading, setIsProviderLoading] = useState(false);
 
   const router = useRouter();
   const form = useForm<SignInWithEmailFormInputs>({
@@ -60,7 +61,7 @@ const LoginForm = ({ session }: { session: Session | null }) => {
       <Form {...form}>
         <form
           onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
-          className="flex flex-col space-y-4 bg-white px-4 py-8 sm:px-16"
+          className="flex flex-col space-y-4 bg-[#fffefe] dark:bg-[#141414] border-t border-border px-4 py-6 sm:px-16"
         >
           <FormInput
             type="text"
@@ -80,7 +81,7 @@ const LoginForm = ({ session }: { session: Session | null }) => {
           type="submit"
           className={
             loading
-              ? "cursor-not-allowed border-gray-200 bg-gray-100"
+              ? "cursor-not-allowed "
               : "w-full"
           }
         >
@@ -92,7 +93,7 @@ const LoginForm = ({ session }: { session: Session | null }) => {
                 Don&apos;t have an account?{" "}
                 <Link
                   href="/register"
-                  className="font-semibold text-gray-800 hover:underline"
+                  className="font-semibold text-blue-500 hover:underline"
                 >
                   Sign up
                 </Link>{" "}
@@ -104,7 +105,7 @@ const LoginForm = ({ session }: { session: Session | null }) => {
               <Link
                 aria-label="Reset password"
                 href="/login/forgot-password"
-                className="font-semibold text-gray-800 hover:underline"
+                className="font-semibold text-blue-500 hover:underline"
               >
                 Reset now
                 <span className="sr-only">Reset Password</span>
@@ -113,25 +114,44 @@ const LoginForm = ({ session }: { session: Session | null }) => {
             </div>
           </div>
         </form>
-        <div className="bg-white text-center pb-8">
+        <div className="flex flex-col w-1/2 mx-auto items-center justify-center gap-2 bg-[#fffefe] dark:bg-[#141414] rounded-b-2xl text-center pb-6">
           <button
             type="button"
             className={cn(buttonVariants({ variant: "outline" }))}
             onClick={() => {
-              setIsGoogleLoading(true)
+              setIsProviderLoading(true)
+              signIn("github",{
+                callbackUrl: '/dashboard'
+              });
+            }}
+            disabled={loading || isProviderLoading}
+          >
+            {isProviderLoading ? (
+              <LoadingDots color="#808080" />
+            ) : (
+              <Icons.gitHub className="h-5 w-5 mr-2" />
+            )}{" "}
+            Continue with Github
+          </button>
+          <button
+            type="button"
+            className={cn(buttonVariants({ variant: "outline" }))}
+            onClick={() => {
+              setIsProviderLoading(true)
               signIn("google",{
                 callbackUrl: '/dashboard'
               });
             }}
-            disabled={loading || isGoogleLoading}
+            disabled={loading || isProviderLoading}
           >
-            {isGoogleLoading ? (
+            {isProviderLoading ? (
               <LoadingDots color="#808080" />
             ) : (
               <Google className="h-5 w-5 mr-2" />
             )}{" "}
-            Sign In with Google
+            Continue with Google
           </button>
+          
         </div>
       </Form>
     </>

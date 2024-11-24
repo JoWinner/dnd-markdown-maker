@@ -152,3 +152,16 @@ this is still not solved. issue is that I have two emails 123@gmail and abc@gmai
 I think instead of just maintaining the auth session for 123@gmail.com and seperate the connection for repo soley for abc@gmail.com it rather create a new auth session and logs 123@gmail.com out and signs in abc@gmail.com.
 
 these flow must be seperated somehow. Please lets fix it
+
+
+
+The connect to https://github.com/login/oauth/authorize?client_id=Ov23liztp3AOFfLIeuPo&scope=read:user%20user:email%20repo&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdashboard
+
+Be careful!
+
+The redirect_uri is not associated with this application.
+
+The application might be misconfigured or could be trying to redirect you to a website you weren't expecting.
+
+
+http://localhost:3000/login?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2Fdashboard&error=OAuthCallback

@@ -5,13 +5,10 @@ import { Logo } from "@/components/logo";
 
 export default function Register() {
   return (
-      <div className="z-10 w-full max-w-md overflow-hidden rounded-2xl border border-border shadow-xl">
-        <div className="flex flex-col items-center justify-center space-y-3 border-b border-border bg-white px-4 py-6 pt-8 text-center sm:px-16">
+    <div className="z-10 w-full max-w-md overflow-auto rounded-2xl my-32 bg-[#fffefe] dark:bg-[#141414] border border-border shadow-sm">
+        <div className="flex flex-col items-center justify-center space-y-3  px-4 py-4 text-center sm:px-16">
         <Logo />
-          <h3 className="text-xl font-semibold pt-4">Sign Up</h3>
-          <p className="text-sm text-muted-foreground">
-            Create an account with your email and password
-          </p>
+          <h3 className="text-xl font-semibold">Create an account</h3>
         </div>
         <RegisterForm />
       </div>

@@ -66,7 +66,7 @@ const ForgotPasswordForm = () => {
     <Form {...form}>
       <form
         onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
-        className="flex flex-col space-y-4 bg-white px-4 py-8 sm:px-16"
+        className="flex flex-col space-y-4 bg-[#fffefe] dark:bg-[#141414] border-t border-border px-4 py-6 sm:px-16"
       >
         <FormInput type="text" name="email" label="Email" control={form.control} />
         <Button
@@ -75,7 +75,7 @@ const ForgotPasswordForm = () => {
           type="submit"
           className={
             loading
-              ? "cursor-not-allowed border-gray-200 bg-gray-100"
+              ? "cursor-not-allowed "
               : "w-full"
           }
         >

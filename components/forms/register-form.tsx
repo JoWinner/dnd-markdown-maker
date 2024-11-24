@@ -7,15 +7,22 @@ import { signUpWithPasswordSchema } from "validations/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { Google } from "@/components/shared/icons";
+import { Icons } from "@/components/icons";
+import { cn } from "@/lib/utils";
 import LoadingDots from "../shared/loading-dots";
 import FormInput from "../ui/form/input";
 import { toast } from "../ui/toast/use-toast";
-import { Button } from "../ui/button";
+import { Button, buttonVariants  } from "../ui/button";
 
 type SignUpWithEmailFormInputs = z.infer<typeof signUpWithPasswordSchema>;
 
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
+  const [isProviderLoading, setIsProviderLoading] = useState(false);
+
+
   const router = useRouter();
   const form = useForm<SignUpWithEmailFormInputs>({
     resolver: zodResolver(signUpWithPasswordSchema),
@@ -60,7 +67,7 @@ const RegisterForm = () => {
     <Form {...form}>
       <form
         onSubmit={(...args) => void form.handleSubmit(onSubmit)(...args)}
-        className="flex flex-col space-y-4 bg-white px-4 py-8 sm:px-16"
+        className="flex flex-col space-y-4 bg-[#fffefe] dark:bg-[#141414] border-t border-border px-4 py-6 sm:px-16"
       >
         <FormInput
           type="text"
@@ -68,6 +75,9 @@ const RegisterForm = () => {
           label="Email"
           control={form.control}
         />
+        <div>
+          
+        </div>
         <FormInput
           type="password"
           name="password"
@@ -86,19 +96,58 @@ const RegisterForm = () => {
           type="submit"
           className={
             loading
-              ? "cursor-not-allowed border-gray-200 bg-gray-100"
+              ? "cursor-not-allowed"
               : "w-full"
           }
         >
           {loading ? <LoadingDots color="#808080" /> : <p>{"Sign Up"}</p>}
         </Button>
         <p className="text-center text-sm text-muted-foreground">
-          Do you have an account?{" "}
-          <Link href="/login" className="font-semibold text-gray-800">
+          I already have an account.{" "}
+          <Link href="/login" className="font-semibold text-blue-500">
             Sign in
           </Link>
         </p>
       </form>
+      <div className="flex flex-col w-1/2 mx-auto items-center justify-center gap-2 bg-[#fffefe] dark:bg-[#141414] rounded-b-2xl text-center pb-6">
+          <button
+            type="button"
+            className={cn(buttonVariants({ variant: "outline" }))}
+            onClick={() => {
+              setIsProviderLoading(true)
+              signIn("github",{
+                callbackUrl: '/dashboard'
+              });
+            }}
+            disabled={loading || isProviderLoading}
+          >
+            {isProviderLoading ? (
+              <LoadingDots color="#808080" />
+            ) : (
+              <Icons.gitHub className="h-5 w-5 mr-2" />
+            )}{" "}
+            Continue with Github
+          </button>
+          <button
+            type="button"
+            className={cn(buttonVariants({ variant: "outline" }))}
+            onClick={() => {
+              setIsProviderLoading(true)
+              signIn("google",{
+                callbackUrl: '/dashboard'
+              });
+            }}
+            disabled={loading || isProviderLoading}
+          >
+            {isProviderLoading ? (
+              <LoadingDots color="#808080" />
+            ) : (
+              <Google className="h-5 w-5 mr-2" />
+            )}{" "}
+            Continue with Google
+          </button>
+          
+        </div>
     </Form>
   );
 };

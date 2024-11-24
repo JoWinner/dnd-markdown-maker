@@ -43,9 +43,9 @@ export default function UserDropdown({ session }: { session: Session }) {
                   className="relative flex w-full items-center justify-start space-x-2 rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-accent hover:text-accent-foreground"
                   disabled
                 >
-                  <Icons.billing className="h-4 w-4" />
-                  <Link href="/dashboard/billing" className="text-sm">
-                    Billing
+                  <Icons.post className="h-4 w-4" />
+                  <Link href="/editor" className="text-sm">
+                    Editor
                   </Link>
                 </button>
 
